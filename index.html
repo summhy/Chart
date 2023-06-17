@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <div>
+
+        <input type="text" id="nombre">
+        <input type="number" id="numero">
+        <input type="button" value="Agrupar" onclick="agrupar()">
+        <input type="button" value="Cargar" onclick="cargar()">
+    </div>
+
+    <div>
+        <canvas id="myChart"></canvas>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <script>
+        let arreglo = [];
+        let nombres = [];
+        const ctx = document.getElementById('myChart');
+        const nombre = document.getElementById("nombre");
+        const numero = document.getElementById("numero");
+        let grafico = null;
+        function agrupar() {
+            
+
+            arreglo.push(numero.valueAsNumber)
+            nombres.push(nombre.value)
+            cargar()
+
+        }
+
+        function cargar() {
+            const data = {
+                labels: nombres,
+                datasets: [{
+                    label: '# of Votes',
+                    data: arreglo,
+                    borderWidth: 1
+                }]
+            };
+
+            if (grafico == null) {
+
+
+                grafico = new Chart(ctx, {
+                    type: 'bar',
+                    data: data,
+                    options: {
+                        scales: {
+                            y: {
+                                beginAtZero: true
+                            }
+                        }
+                    }
+                });
+            } else {
+                grafico.update()
+            }
+        }
+
+
+
+    </script>
+
+</body>
+
+</html>
